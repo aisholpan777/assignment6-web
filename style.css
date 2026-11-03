@@ -1,0 +1,539 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f8f8f6;
+    color: #27313b;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    max-width: 1450px;
+    margin: 25px auto;
+    padding: 0 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 8px 0;
+    font-size: 34px;
+    font-weight: 700;
+}
+
+header p {
+    color: #65727e;
+    font-size: 15px;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    background: white;
+    border: 1px solid #e5d9cf;
+    border-radius: 14px;
+}
+
+.toolbar label {
+    font-weight: 600;
+}
+
+.toolbar select {
+    flex: 1;
+    min-width: 250px;
+    max-width: 550px;
+}
+
+.toolbar select,
+.toolbar button,
+.sort,
+#moves button {
+    padding: 10px 12px;
+    border: 1px solid #b9a89b;
+    border-radius: 8px;
+    background: white;
+    color: #27313b;
+    font: inherit;
+    cursor: pointer;
+}
+
+.toolbar #run {
+    background: #75503b;
+    color: white;
+}
+
+button:hover {
+    filter: brightness(0.95);
+}
+
+#result {
+    min-height: 58px;
+    padding: 18px 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.house {
+    position: relative;
+    width: 100%;
+    padding-top: 12px;
+}
+
+.roof {
+    position: relative;
+    height: 190px;
+    width: 100%;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 18px,
+            rgba(70, 38, 25, 0.38) 19px 21px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            #986247 0 48px,
+            #855239 49px 51px
+        );
+    clip-path: polygon(
+        50% 0,
+        100% 88%,
+        100% 100%,
+        0 100%,
+        0 88%
+    );
+    border-bottom: 10px solid #4c3023;
+}
+
+.roof::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: #4c3023;
+}
+
+.chimney {
+    position: absolute;
+    top: 28px;
+    right: 19%;
+    width: 65px;
+    height: 120px;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 24px,
+            #72412d 25px 27px
+        ),
+        #aa6d50;
+    border: 5px solid #6b3f2c;
+    z-index: 1;
+}
+
+.roof-window {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    width: 43px;
+    height: 43px;
+    margin-left: -21px;
+    border: 5px solid #4a3023;
+    border-radius: 50%;
+    background: #fff7dc;
+    z-index: 2;
+}
+
+.window-cross::before,
+.window-cross::after {
+    content: "";
+    position: absolute;
+    background: #4a3023;
+}
+
+.window-cross::before {
+    width: 5px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+}
+
+.window-cross::after {
+    height: 5px;
+    width: 100%;
+    left: 0;
+    top: 50%;
+}
+
+.roof-sign {
+    position: absolute;
+    top: 96px;
+    left: 50%;
+    z-index: 3;
+    width: max-content;
+    max-width: 90%;
+    padding: 14px 24px;
+    background: #fffdf7;
+    border: 4px solid #4b3023;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 27px;
+    font-weight: 700;
+    transform: translateX(-50%);
+}
+
+.house-body {
+    border-left: 9px solid #4c3023;
+    border-right: 9px solid #4c3023;
+}
+
+.floor {
+    display: grid;
+    grid-template-columns: 75px minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 265px;
+    border-bottom: 9px solid #4c3023;
+}
+
+.floor-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ead9cb;
+    border-right: 8px solid #4c3023;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    letter-spacing: 6px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #5c392b;
+}
+
+.room {
+    position: relative;
+    min-width: 0;
+    padding: 16px 15px 35px;
+    border-right: 8px solid #4c3023;
+    overflow: hidden;
+}
+
+.room:last-child {
+    border-right: 0;
+}
+
+.balcony {
+    background: #e6f1f8;
+}
+
+.hall {
+    background: repeating-linear-gradient(
+        90deg,
+        #fffdf9 0 24px,
+        #faf4ed 25px 48px
+    );
+}
+
+.kitchen {
+    background-color: #fffaf1;
+    background-image:
+        linear-gradient(#eae4db 1px, transparent 1px),
+        linear-gradient(90deg, #eae4db 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.living {
+    background: #fffdf9;
+}
+
+.room-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    position: relative;
+    z-index: 3;
+}
+
+.room h2 {
+    margin: 0 0 18px;
+    font-size: 23px;
+}
+
+.sort {
+    padding: 6px 9px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.guests {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-height: 155px;
+    z-index: 2;
+}
+
+.guest {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 105px;
+    padding: 5px 2px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.guest.selected {
+    background: #fff2b6;
+    outline: 2px solid #e2a525;
+}
+
+.avatar {
+    display: block;
+    width: min(100%, 72px);
+    aspect-ratio: 1;
+    margin: 0 auto;
+    border: 4px solid var(--ring);
+    border-radius: 50%;
+    background: white;
+}
+
+.student-badge {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #205b93;
+    color: white;
+    font-size: 13px;
+}
+
+.name {
+    margin-top: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.time {
+    margin-top: 4px;
+    font-size: 11px;
+    color: #64717c;
+}
+
+.things {
+    min-height: 27px;
+    margin-top: 7px;
+    padding: 3px 2px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 20px;
+    background: rgba(240, 240, 240, 0.7);
+}
+
+.balcony-railing {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    border-top: 6px solid #6a432f;
+    background: repeating-linear-gradient(
+        90deg,
+        #70452e 0 5px,
+        transparent 5px 29px
+    );
+    z-index: 1;
+}
+
+.foundation {
+    height: 24px;
+    margin: 0 12px;
+    border-top: 8px solid #8c8178;
+    background: repeating-linear-gradient(
+        90deg,
+        #a69a8e 0 44px,
+        #8c8178 45px 47px
+    );
+}
+
+.grass {
+    height: 22px;
+    margin-top: -2px;
+    border-radius: 16px;
+    background: linear-gradient(#9fc45e, #6c9b3d);
+}
+
+.legend,
+.help {
+    margin-top: 24px;
+    padding: 18px;
+    background: white;
+    border: 1px solid #e4ded6;
+    border-radius: 12px;
+}
+
+.legend h2,
+.help h2 {
+    margin: 0 0 12px;
+    font-size: 18px;
+}
+
+.legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.help p {
+    margin: 9px 0;
+    color: #65727e;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(23, 27, 34, 0.48);
+}
+
+.detail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 420px;
+    padding: 23px;
+    border: 2px solid #75503b;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    z-index: 10000;
+}
+
+#close {
+    position: absolute;
+    top: 10px;
+    right: 13px;
+    z-index: 2;
+    border: none;
+    background: transparent;
+    font-size: 30px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#detail-body {
+    text-align: center;
+}
+
+#detail-body img {
+    display: block;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 15px;
+    border: 5px solid var(--ring);
+    border-radius: 50%;
+    background: white;
+}
+
+#detail-body h2 {
+    margin: 8px 0 20px;
+    font-size: 26px;
+}
+
+#detail-body p {
+    margin: 12px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+#moves {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+#moves button {
+    font-size: 12px;
+    padding: 9px;
+}
+
+.flight,
+.sort-flight {
+    position: fixed;
+    z-index: 10001;
+    pointer-events: none;
+}
+
+.placeholder {
+    position: relative;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+@media (max-width: 850px) {
+    main {
+        padding: 0 8px;
+    }
+
+    .house {
+        min-width: 700px;
+    }
+
+    .house-wrapper {
+        overflow-x: auto;
+    }
+
+    .floor {
+        grid-template-columns: 45px minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .floor-label {
+        font-size: 12px;
+    }
+
+    .room {
+        padding: 10px 6px 35px;
+    }
+
+    .room h2 {
+        font-size: 16px;
+    }
+
+    .guest .name {
+        font-size: 10px;
+    }
+
+    .student-badge {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+
+    .roof-sign {
+        font-size: 20px;
+    }
+}

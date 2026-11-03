@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Party — Selector Detective</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>The Party — Selector Detective</h1>
+            <p>At 21:30, the birthday cake disappeared. Investigate the guests!</p>
+        </header>
+
+        <section class="toolbar">
+            <label for="case">Detective case</label>
+            <select id="case"></select>
+            <button id="run" type="button">Investigate</button>
+            <button id="clear" type="button">Clear</button>
+            <button id="reset" type="button">Reset party</button>
+        </section>
+
+        <div id="result" aria-live="polite">Choose a case to begin.</div>
+
+        <div class="house">
+            <div class="roof">
+                <div class="chimney"></div>
+                <div class="roof-window">
+                    <span class="window-cross"></span>
+                </div>
+                <div class="roof-sign">The Party, 19:30 – 22:30</div>
+            </div>
+
+            <div class="house-body">
+                <div class="floor">
+                    <div class="floor-label">FLOOR 2</div>
+
+                    <section class="room balcony" id="balcony" data-floor="2" data-room="Balcony">
+                        <div class="room-head">
+                            <h2>Balcony</h2>
+                            <button class="sort" type="button">Sort by time</button>
+                        </div>
+                        <div class="guests"></div>
+                        <div class="balcony-railing"></div>
+                    </section>
+
+                    <section class="room hall" id="hall" data-floor="2" data-room="Hall">
+                        <div class="room-head">
+                            <h2>Hall</h2>
+                            <button class="sort" type="button">Sort by time</button>
+                        </div>
+                        <div class="guests"></div>
+                    </section>
+                </div>
+
+                <div class="floor">
+                    <div class="floor-label">FLOOR 1</div>
+
+                    <section class="room kitchen" id="kitchen" data-floor="1" data-room="Kitchen">
+                        <div class="room-head">
+                            <h2>Kitchen</h2>
+                            <button class="sort" type="button">Sort by time</button>
+                        </div>
+                        <div class="guests"></div>
+                    </section>
+
+                    <section class="room living" id="living" data-floor="1" data-room="Living room">
+                        <div class="room-head">
+                            <h2>Living room</h2>
+                            <button class="sort" type="button">Sort by time</button>
+                        </div>
+                        <div class="guests"></div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="foundation"></div>
+            <div class="grass"></div>
+        </div>
+
+        <section class="legend">
+            <h2>Legend</h2>
+            <div class="legend-items">
+                <span>🔴 🔵 🟢 ⚫ 🟡 🟣 Clothing color</span>
+                <span>📱 Phone</span>
+                <span>👓 Glasses</span>
+                <span>👜 Bag</span>
+                <span>☕ Cup</span>
+                <span>🍰 Crumbs</span>
+                <span>🎓 AITU student</span>
+            </div>
+        </section>
+
+        <section class="help">
+            <h2>How to test</h2>
+            <p>Select a detective case and click Investigate to highlight matching guests.</p>
+            <p>Click any guest to view their details and move them to another room.</p>
+            <p>Use Sort by time to arrange guests by arrival time. Click again to restore the original order.</p>
+            <p>Clear removes the spotlight. Reset party restores the original arrangement.</p>
+        </section>
+    </main>
+
+    <div id="overlay" class="overlay" aria-hidden="true">
+        <div id="detail" class="detail" role="dialog" aria-modal="true" aria-label="Guest details">
+            <button id="close" type="button" aria-label="Close">×</button>
+            <div id="detail-body"></div>
+            <div id="moves"></div>
+        </div>
+    </div>
+</body>
+</html>
